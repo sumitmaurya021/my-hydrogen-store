@@ -54,7 +54,7 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg'},
   ];
 }
 
@@ -215,3 +215,4 @@ export function ErrorBoundary() {
 /** @typedef {import('react-router').ShouldRevalidateFunction} ShouldRevalidateFunction */
 /** @typedef {import('./+types/root').Route} Route */
 /** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */
+
