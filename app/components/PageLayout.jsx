@@ -4,6 +4,8 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
+import {AnnouncementBar} from '~/components/AnnouncementBar';
+import {announcementData} from '~/data/siteConfig';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
@@ -26,6 +28,10 @@ export function PageLayout({
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+      
+      {/* Announcement Bar Header ke upar add kar rahe hain */}
+      <AnnouncementBar {...announcementData} />
+
       {header && (
         <Header
           header={header}

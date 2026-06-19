@@ -1,0 +1,22 @@
+.announcement-bar {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.announcement-bar-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.announcement-bar-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 700;
+}
