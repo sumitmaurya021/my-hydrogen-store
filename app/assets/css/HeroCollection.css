@@ -1,0 +1,108 @@
+body {
+    overflow-x: hidden;
+}
+
+.hero-collection-wrapper {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    background-color: #ffffff;
+    padding: 0 !important;
+    position: relative;
+    z-index: 0;
+}
+
+.hero-collection__top {
+    padding: 120px 20px 240px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-collection__top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.hero-collection__top--theme-dark {
+    background-color: #5d5b58;
+    color: #ffffff;
+}
+
+.hero-collection__subheading {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.hero-collection__heading {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+}
+
+.hero-collection__button {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: opacity 0.3s ease;
+}
+
+.hero-collection__button:hover {
+    opacity: 0.8;
+}
+
+.hero-collection__bottom {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-top: -180px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-collection__grid-heading {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-align: left;
+}
+
+.hero-collection__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .hero-collection__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-collection__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}

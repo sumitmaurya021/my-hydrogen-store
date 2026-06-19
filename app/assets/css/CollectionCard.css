@@ -1,0 +1,49 @@
+.collection-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Halka shadow depth ke liye */
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.collection-card:hover {
+    transform: translateY(-5px);
+    /* Hover par thoda upar uthega */
+}
+
+/* Image background हल्का grey/cream hona chahiye design ke according */
+.collection-card__image-wrapper {
+    background-color: #f4efeb;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    /* Square box banayega */
+}
+
+.collection-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Bottom info part */
+.collection-card__info {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.collection-card__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+}

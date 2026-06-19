@@ -22,6 +22,12 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    defaultSrc: [
+      "'self'",
+      "https://cdn.shopify.com",
+      "https://shopify.com",
+      "https://images.onepeloton.com"
+    ]
   });
 
   const body = await renderToReadableStream(
