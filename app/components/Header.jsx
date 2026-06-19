@@ -9,18 +9,47 @@ import {useAside} from '~/components/Aside';
 export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-    </header>
+    <>
+      <div className="announcement-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon arrow-icon"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <span>Free U.S. shipping on orders over $35</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon arrow-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </div>
+      <header className="header colourpop-style">
+        <div className="header-top">
+          <div className="header-top-left">
+            <HeaderMenuMobileToggle />
+            <SearchToggle />
+          </div>
+          
+          <NavLink prefetch="intent" to="/" className="header-logo" end>
+            <span className="logo-text">{shop.name}</span>
+          </NavLink>
+          
+          <div className="header-top-right">
+            <button className="reset header-cta-icon wishlist-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <NavLink prefetch="intent" to="/account" className="header-cta-icon">
+              <Suspense fallback={<AccountIcon />}>
+                <Await resolve={isLoggedIn} errorElement={<AccountIcon />}>
+                  {(isLoggedIn) => <AccountIcon />}
+                </Await>
+              </Suspense>
+            </NavLink>
+            <CartToggle cart={cart} />
+            <span className="country-text">India</span>
+          </div>
+        </div>
+
+        <HeaderMenu
+          menu={menu}
+          viewport="desktop"
+          primaryDomainUrl={header.shop.primaryDomain.url}
+          publicStoreDomain={publicStoreDomain}
+        />
+      </header>
+    </>
   );
 }
 
@@ -48,7 +77,7 @@ export function HeaderMenu({
           end
           onClick={close}
           prefetch="intent"
-          style={activeLinkStyle}
+          className={({isActive}) => isActive ? 'header-menu-item active-link' : 'header-menu-item'}
           to="/"
         >
           Home
@@ -66,12 +95,11 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
             end
             key={item.id}
             onClick={close}
             prefetch="intent"
-            style={activeLinkStyle}
+            className={({isActive}) => isActive ? 'header-menu-item active-link' : 'header-menu-item'}
             to={url}
           >
             {item.title}
@@ -82,23 +110,9 @@ export function HeaderMenu({
   );
 }
 
-/**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
- */
-function HeaderCtas({isLoggedIn, cart}) {
+function AccountIcon() {
   return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
-    </nav>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
   );
 }
 
@@ -106,10 +120,10 @@ function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
     <button
-      className="header-menu-mobile-toggle reset"
+      className="header-menu-mobile-toggle reset header-cta-icon"
       onClick={() => open('mobile')}
     >
-      <h3>☰</h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="icon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
   );
 }
@@ -117,8 +131,8 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
+    <button className="reset header-cta-icon" onClick={() => open('search')}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </button>
   );
 }
@@ -133,6 +147,7 @@ function CartBadge({count}) {
   return (
     <a
       href="/cart"
+      className="header-cta-icon cart-badge-container"
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -144,7 +159,8 @@ function CartBadge({count}) {
         });
       }}
     >
-      Cart <span aria-label={`(items: ${count})`}>{count}</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="icon"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      {count > 0 && <span className="cart-badge-count"></span>}
     </a>
   );
 }
@@ -175,53 +191,40 @@ const FALLBACK_HEADER_MENU = {
       id: 'gid://shopify/MenuItem/461609500728',
       resourceId: null,
       tags: [],
-      title: 'Collections',
+      title: 'New & Best Sellers',
       type: 'HTTP',
-      url: '/collections',
+      url: '/collections/new',
       items: [],
     },
     {
       id: 'gid://shopify/MenuItem/461609533496',
       resourceId: null,
       tags: [],
-      title: 'Blog',
+      title: 'Value Sets',
       type: 'HTTP',
-      url: '/blogs/journal',
+      url: '/collections/value-sets',
       items: [],
     },
     {
       id: 'gid://shopify/MenuItem/461609566264',
       resourceId: null,
       tags: [],
-      title: 'Policies',
+      title: 'Palettes',
       type: 'HTTP',
-      url: '/policies',
+      url: '/collections/palettes',
       items: [],
     },
     {
       id: 'gid://shopify/MenuItem/461609599032',
-      resourceId: 'gid://shopify/Page/92591030328',
+      resourceId: null,
       tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
+      title: 'Sale',
+      type: 'HTTP',
+      url: '/collections/sale',
       items: [],
     },
   ],
 };
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({isActive, isPending}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
-  };
-}
 
 /** @typedef {'desktop' | 'mobile'} Viewport */
 /**
