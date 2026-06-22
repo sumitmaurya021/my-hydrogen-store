@@ -5,6 +5,7 @@ import {ProductItem} from '~/components/ProductItem';
 import {MockShopNotice} from '~/components/MockShopNotice';
 import {HeroCollection} from '~/components/HeroCollection';
 import {heroCollectionsData, heroContent} from '~/data/heroData';
+import {TrainingFeatures} from '~/components/TrainingFeatures';
 /**
  * @type {Route.MetaFunction}
  */
@@ -77,6 +78,7 @@ export default function Homepage() {
         bgImage={heroContent.bgImage}
         gridHeading={heroContent.gridHeading}
       />
+      <TrainingFeatures />
       {data.isShopLinked ? null : <MockShopNotice />}
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />

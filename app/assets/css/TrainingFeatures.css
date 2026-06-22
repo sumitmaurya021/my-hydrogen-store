@@ -1,0 +1,214 @@
+/* TrainingFeatures.css */
+.training-features-section {
+  padding: 4rem 2rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #111;
+  background-color: #f7f9fa;
+  /* Matches the background in the image */
+}
+
+.training-features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.training-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.training-title {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.training-subtitle {
+  font-size: 1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.training-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .training-content-wrapper {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+  }
+}
+
+.training-accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #ddd;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordion-item:first-child {
+  border-top: 1px solid #ddd;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.accordion-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #111;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.accordion-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111;
+}
+
+.accordion-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.accordion-item.active .accordion-body {
+  max-height: 200px;
+  /* Adjust as needed */
+  opacity: 1;
+  margin-top: 0.75rem;
+}
+
+.accordion-desc {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  padding-left: calc(24px + 1rem);
+  /* Align with title */
+  margin: 0;
+}
+
+/* Media Area */
+.training-media-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .training-media-container {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.training-media-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.training-media-wrapper.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.training-media-wrapper video,
+.training-media-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.play-button-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  z-index: 10;
+}
+
+.play-button-overlay:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.play-button-overlay svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  margin-left: 4px;
+  /* Optical alignment */
+}
+
+.media-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.media-subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin: 0;
+}
