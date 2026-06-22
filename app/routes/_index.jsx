@@ -1,21 +1,23 @@
-import {Await, useLoaderData, Link} from 'react-router';
-import {Suspense} from 'react';
-import {Image} from '@shopify/hydrogen';
-import {ProductItem} from '~/components/ProductItem';
-import {MockShopNotice} from '~/components/MockShopNotice';
-import {HeroCollection} from '~/components/HeroCollection';
-import {heroCollectionsData, heroContent} from '~/data/heroData';
-import {TrainingFeatures} from '~/components/TrainingFeatures';
-import {BlogTestimonials} from '~/components/BlogTestimonials';
-import {PremiumFitness} from '~/components/PremiumFitness';
-import {WorkoutClasses} from '~/components/WorkoutClasses';
-import {ImageWithText} from '~/components/ImageWithText';
-import {imageWithTextData} from '~/data/imageWithTextData';
+import { Await, useLoaderData, Link } from 'react-router';
+import { Suspense } from 'react';
+import { Image } from '@shopify/hydrogen';
+import { ProductItem } from '~/components/ProductItem';
+import { MockShopNotice } from '~/components/MockShopNotice';
+import { HeroCollection } from '~/components/HeroCollection';
+import { heroCollectionsData, heroContent } from '~/data/heroData';
+import { TrainingFeatures } from '~/components/TrainingFeatures';
+import { BlogTestimonials } from '~/components/BlogTestimonials';
+import { PremiumFitness } from '~/components/PremiumFitness';
+import { WorkoutClasses } from '~/components/WorkoutClasses';
+import { ImageWithText } from '~/components/ImageWithText';
+import { imageWithTextData } from '~/data/imageWithTextData';
+import { HeroBanner } from '~/components/HeroBanner';
+import { heroBannerData } from '~/data/heroBannerData';
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{ title: 'Hydrogen | Home' }];
 };
 
 /**
@@ -28,7 +30,7 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
@@ -36,8 +38,8 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {Route.LoaderArgs}
  */
-async function loadCriticalData({context}) {
-  const [{collections}] = await Promise.all([
+async function loadCriticalData({ context }) {
+  const [{ collections }] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
     // Add other queries here, so that they are loaded in parallel
   ]);
@@ -54,7 +56,7 @@ async function loadCriticalData({context}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
+function loadDeferredData({ context }) {
   const recommendedProducts = context.storefront
     .query(RECOMMENDED_PRODUCTS_QUERY)
     .catch((error) => {
@@ -73,7 +75,7 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
-      <HeroCollection 
+      <HeroCollection
         heading={heroContent.heading}
         subheading={heroContent.subheading}
         buttonText={heroContent.buttonText}
@@ -83,6 +85,7 @@ export default function Homepage() {
         bgImage={heroContent.bgImage}
         gridHeading={heroContent.gridHeading}
       />
+
       <TrainingFeatures />
       <BlogTestimonials />
       <PremiumFitness />
@@ -90,6 +93,7 @@ export default function Homepage() {
       {imageWithTextData.map((item) => (
         <ImageWithText key={item.id} data={item} />
       ))}
+      <HeroBanner data={heroBannerData} />
       {data.isShopLinked ? null : <MockShopNotice />}
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
@@ -102,7 +106,7 @@ export default function Homepage() {
  *   collection: FeaturedCollectionFragment;
  * }}
  */
-function FeaturedCollection({collection}) {
+function FeaturedCollection({ collection }) {
   if (!collection) return null;
   const image = collection?.image;
   return (
@@ -129,7 +133,7 @@ function FeaturedCollection({collection}) {
  *   products: Promise<RecommendedProductsQuery | null>;
  * }}
  */
-function RecommendedProducts({products}) {
+function RecommendedProducts({ products }) {
   return (
     <section
       className="recommended-products"
@@ -142,8 +146,8 @@ function RecommendedProducts({products}) {
             <div className="recommended-products-grid">
               {response
                 ? response.products.nodes.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                  ))
+                  <ProductItem key={product.id} product={product} />
+                ))
                 : null}
             </div>
           )}

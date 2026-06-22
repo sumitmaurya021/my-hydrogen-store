@@ -107,3 +107,9 @@
   background-color: #111;
   color: #fff;
 }
+
+@media screen and (max-width: 768px) {
+  .image-with-text-content {
+    padding: 3rem 1.5rem;
+  }
+}

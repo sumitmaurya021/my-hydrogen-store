@@ -1,0 +1,145 @@
+.hero-banner-section {
+  width: 100%;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  /* Match light background of app if any */
+}
+
+.hero-banner-container {
+  max-width: 1232px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.hero-banner-container:hover {
+  transform: translateY(-4px);
+}
+
+.hero-banner-background {
+  position: relative;
+  width: 100%;
+  min-height: 552px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  /* For inner image scale effect if wanted */
+}
+
+.hero-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+  z-index: 1;
+}
+
+.hero-banner-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  padding: 2rem;
+  max-width: 800px;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-banner-subheading {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-banner-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-banner-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0 auto 2.5rem auto;
+  line-height: 1.5;
+  max-width: 600px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-banner-button {
+  display: inline-block;
+  padding: 0.875rem 2.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  background: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.hero-banner-button:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hero-banner-background {
+    min-height: 400px;
+  }
+
+  .hero-banner-heading {
+    font-size: 2.5rem;
+  }
+
+  .hero-banner-description {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-banner-background {
+    min-height: 350px;
+  }
+
+  .hero-banner-heading {
+    font-size: 2rem;
+  }
+
+  .hero-banner-button {
+    padding: 0.75rem 2rem;
+  }
+}
