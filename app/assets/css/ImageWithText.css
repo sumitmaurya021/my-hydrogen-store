@@ -1,0 +1,109 @@
+.image-with-text-section {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .image-with-text-section {
+    flex-direction: row;
+    min-height: 500px;
+  }
+
+  .image-with-text-section.image-right {
+    flex-direction: row-reverse;
+  }
+
+  .image-with-text-media,
+  .image-with-text-content {
+    flex: 0 0 50%;
+    width: 50%;
+    max-width: 50%;
+  }
+}
+
+.image-with-text-media {
+  flex: 1;
+  position: relative;
+  background-color: #e6e2dd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-with-text-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-with-text-content {
+  flex: 1;
+  background-color: #f7f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-with-text-inner {
+  max-width: 500px;
+  width: 100%;
+}
+
+.text-left .image-with-text-inner {
+  text-align: left;
+}
+
+.text-center .image-with-text-inner {
+  text-align: center;
+}
+
+/* Default / Small Sizes */
+.image-with-text-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.image-with-text-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* Large Sizes for specific sections */
+.size-large .image-with-text-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.size-large .image-with-text-description {
+  font-size: 1rem;
+}
+
+.image-with-text-button {
+  display: inline-block;
+  background-color: transparent;
+  color: #111;
+  padding: 10px 24px;
+  border: 1px solid #111;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.image-with-text-button:hover {
+  background-color: #111;
+  color: #fff;
+}

@@ -9,6 +9,8 @@ import {TrainingFeatures} from '~/components/TrainingFeatures';
 import {BlogTestimonials} from '~/components/BlogTestimonials';
 import {PremiumFitness} from '~/components/PremiumFitness';
 import {WorkoutClasses} from '~/components/WorkoutClasses';
+import {ImageWithText} from '~/components/ImageWithText';
+import {imageWithTextData} from '~/data/imageWithTextData';
 /**
  * @type {Route.MetaFunction}
  */
@@ -85,6 +87,9 @@ export default function Homepage() {
       <BlogTestimonials />
       <PremiumFitness />
       <WorkoutClasses />
+      {imageWithTextData.map((item) => (
+        <ImageWithText key={item.id} data={item} />
+      ))}
       {data.isShopLinked ? null : <MockShopNotice />}
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
