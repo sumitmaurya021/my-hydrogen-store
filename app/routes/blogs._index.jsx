@@ -1,53 +1,46 @@
 import {Link, useLoaderData} from 'react-router';
-import {getPaginationVariables} from '@shopify/hydrogen';
+import {Image, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import '../assets/css/BlogsPage.css';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Blogs`}];
+  return [{title: `Hydrogen | All Blogs`}];
 };
 
 /**
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
-
   return {...deferredData, ...criticalData};
 }
 
 /**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
+ * Load data necessary for rendering content above the fold.
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context, request}) {
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 10,
+    pageBy: 12, // Show more articles per page
   });
 
-  const [{blogs}] = await Promise.all([
-    context.storefront.query(BLOGS_QUERY, {
+  const [{articles}] = await Promise.all([
+    context.storefront.query(ARTICLES_QUERY, {
       variables: {
         ...paginationVariables,
       },
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
-  return {blogs};
+  return {articles};
 }
 
 /**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
+ * Load data for rendering content below the fold.
  * @param {Route.LoaderArgs}
  */
 function loadDeferredData({context}) {
@@ -56,32 +49,71 @@ function loadDeferredData({context}) {
 
 export default function Blogs() {
   /** @type {LoaderReturnData} */
-  const {blogs} = useLoaderData();
+  const {articles} = useLoaderData();
 
   return (
-    <div className="blogs">
-      <h1>Blogs</h1>
-      <div className="blogs-grid">
-        <PaginatedResourceSection connection={blogs}>
-          {({node: blog}) => (
-            <Link
-              className="blog"
-              key={blog.handle}
-              prefetch="intent"
-              to={`/blogs/${blog.handle}`}
-            >
-              <h2>{blog.title}</h2>
-            </Link>
-          )}
-        </PaginatedResourceSection>
+    <div className="blogs-page-container">
+      <div className="blogs-page-header">
+        <h1 className="blogs-page-title">All Blog Posts</h1>
       </div>
+      <PaginatedResourceSection connection={articles} resourcesClassName="blog-grid">
+        {({node: article, index}) => (
+          <ArticleItem
+            article={article}
+            key={article.id}
+            loading={index < 2 ? 'eager' : 'lazy'}
+          />
+        )}
+      </PaginatedResourceSection>
     </div>
   );
 }
 
-// NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
-const BLOGS_QUERY = `#graphql
-  query Blogs(
+/**
+ * @param {{
+ *   article: ArticleItemFragment;
+ *   loading?: HTMLImageElement['loading'];
+ * }}
+ */
+function ArticleItem({article, loading}) {
+  const publishedAt = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(article.publishedAt));
+  
+  // Use the blog handle if available, otherwise default to "news"
+  const blogHandle = article.blog?.handle || 'news';
+
+  return (
+    <div className="blog-article" key={article.id}>
+      <Link to={`/blogs/${blogHandle}/${article.handle}`}>
+        {article.image ? (
+          <div className="blog-article-image">
+            <Image
+              alt={article.image.altText || article.title}
+              aspectRatio="3/2"
+              data={article.image}
+              loading={loading}
+              sizes="(min-width: 768px) 50vw, 100vw"
+            />
+          </div>
+        ) : (
+          <div className="blog-article-image" style={{backgroundColor: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <span>No Image</span>
+          </div>
+        )}
+        <div className="blog-article-content">
+          <h3 className="blog-article-title">{article.title}</h3>
+          <span className="blog-article-date">{publishedAt}</span>
+        </div>
+      </Link>
+    </div>
+  );
+}
+
+const ARTICLES_QUERY = `#graphql
+  query Articles(
     $country: CountryCode
     $endCursor: String
     $first: Int
@@ -89,11 +121,13 @@ const BLOGS_QUERY = `#graphql
     $last: Int
     $startCursor: String
   ) @inContext(country: $country, language: $language) {
-    blogs(
+    articles(
       first: $first,
       last: $last,
       before: $startCursor,
-      after: $endCursor
+      after: $endCursor,
+      sortKey: PUBLISHED_AT,
+      reverse: true
     ) {
       pageInfo {
         hasNextPage
@@ -102,19 +136,33 @@ const BLOGS_QUERY = `#graphql
         endCursor
       }
       nodes {
-        title
-        handle
-        seo {
-          title
-          description
-        }
+        ...ArticleItem
       }
+    }
+  }
+
+  fragment ArticleItem on Article {
+    author: authorV2 {
+      name
+    }
+    contentHtml
+    handle
+    id
+    image {
+      id
+      altText
+      url
+      width
+      height
+    }
+    publishedAt
+    title
+    blog {
+      handle
     }
   }
 `;
 
-/** @typedef {BlogsQuery['blogs']['nodes'][0]} BlogNode */
-
 /** @typedef {import('./+types/blogs._index').Route} Route */
-/** @typedef {import('storefrontapi.generated').BlogsQuery} BlogsQuery */
+/** @typedef {import('storefrontapi.generated').ArticleItemFragment} ArticleItemFragment */
 /** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

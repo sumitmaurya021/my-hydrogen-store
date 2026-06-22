@@ -13,6 +13,7 @@ import { ImageWithText } from '~/components/ImageWithText';
 import { imageWithTextData } from '~/data/imageWithTextData';
 import { HeroBanner } from '~/components/HeroBanner';
 import { heroBannerData } from '~/data/heroBannerData';
+import { LatestBlogs } from '~/components/LatestBlogs';
 /**
  * @type {Route.MetaFunction}
  */
@@ -65,8 +66,16 @@ function loadDeferredData({ context }) {
       return null;
     });
 
+  const latestArticles = context.storefront
+    .query(LATEST_ARTICLES_QUERY)
+    .catch((error) => {
+      console.error(error);
+      return null;
+    });
+
   return {
     recommendedProducts,
+    latestArticles,
   };
 }
 
@@ -94,6 +103,13 @@ export default function Homepage() {
         <ImageWithText key={item.id} data={item} />
       ))}
       <HeroBanner data={heroBannerData} />
+      
+      <Suspense fallback={<div style={{textAlign: 'center', padding: '2rem'}}>Loading blogs...</div>}>
+        <Await resolve={data.latestArticles}>
+          {(response) => response ? <LatestBlogs articles={response.articles} /> : null}
+        </Await>
+      </Suspense>
+
       {data.isShopLinked ? null : <MockShopNotice />}
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
@@ -205,6 +221,40 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     products(first: 4, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...RecommendedProduct
+      }
+    }
+  }
+`;
+
+const LATEST_ARTICLES_QUERY = `#graphql
+  fragment LatestArticleItem on Article {
+    author: authorV2 {
+      name
+    }
+    contentHtml
+    handle
+    id
+    image {
+      id
+      altText
+      url
+      width
+      height
+    }
+    publishedAt
+    title
+    blog {
+      handle
+    }
+    seo {
+      description
+    }
+  }
+  query LatestArticles($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    articles(first: 3, sortKey: PUBLISHED_AT, reverse: true) {
+      nodes {
+        ...LatestArticleItem
       }
     }
   }

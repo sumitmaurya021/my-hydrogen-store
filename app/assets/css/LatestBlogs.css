@@ -1,0 +1,116 @@
+.latest-blogs-section {
+  padding: 4rem 1rem;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.latest-blogs-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 3rem;
+}
+
+.latest-blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .latest-blogs-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.latest-blog-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.latest-blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.latest-blog-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 66.66%; /* 3:2 aspect ratio */
+  background-color: #f0f0f0;
+}
+
+.latest-blog-image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.latest-blog-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.latest-blog-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #111;
+  margin-bottom: 0.75rem;
+}
+
+.latest-blog-excerpt {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.latest-blog-meta {
+  margin-top: auto;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.latest-blogs-view-more {
+  display: inline-block;
+  margin-top: 3rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  padding: 12px 32px;
+  border: 2px solid #111;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+}
+
+.latest-blogs-view-more:hover {
+  background-color: #111;
+  color: #fff;
+}
