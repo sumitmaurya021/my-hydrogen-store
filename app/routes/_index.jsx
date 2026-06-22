@@ -8,6 +8,7 @@ import {heroCollectionsData, heroContent} from '~/data/heroData';
 import {TrainingFeatures} from '~/components/TrainingFeatures';
 import {BlogTestimonials} from '~/components/BlogTestimonials';
 import {PremiumFitness} from '~/components/PremiumFitness';
+import {WorkoutClasses} from '~/components/WorkoutClasses';
 /**
  * @type {Route.MetaFunction}
  */
@@ -83,6 +84,7 @@ export default function Homepage() {
       <TrainingFeatures />
       <BlogTestimonials />
       <PremiumFitness />
+      <WorkoutClasses />
       {data.isShopLinked ? null : <MockShopNotice />}
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />

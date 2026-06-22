@@ -1,0 +1,170 @@
+.workout-classes-section {
+  padding: 6rem 2rem;
+  background-color: #f7f9fa;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+.workout-classes-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+}
+
+.workout-classes-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.workout-classes-subheading {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.workout-classes-button {
+  display: inline-block;
+  background-color: transparent;
+  color: #111;
+  padding: 12px 24px;
+  border: 1px solid #111;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.workout-classes-button:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+/* Slider Styles */
+.workout-classes-slider {
+  padding-bottom: 4rem;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.workout-class-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.workout-class-image-wrapper {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  aspect-ratio: 4 / 3;
+}
+
+.workout-class-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.workout-class-image-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+.workout-class-icon {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+}
+
+.workout-class-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.workout-class-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.25rem;
+}
+
+.workout-class-link {
+  font-size: 0.85rem;
+  color: #555;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.workout-class-link:hover {
+  color: #111;
+}
+
+/* Swiper overrides */
+.workout-classes-slider .swiper {
+  padding-bottom: 50px;
+}
+
+.workout-classes-slider .swiper-pagination {
+  bottom: 0 !important;
+}
+
+.workout-classes-slider .swiper-pagination-bullet {
+  background-color: #ccc;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.workout-classes-slider .swiper-pagination-bullet-active {
+  background-color: #555;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Navigation arrows styling matching the image */
+.workout-classes-slider .swiper-button-prev,
+.workout-classes-slider .swiper-button-next {
+  background-color: rgba(0, 0, 0, 0.35);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  top: 35%;
+  transform: translateY(-50%);
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.workout-classes-slider .swiper-button-prev {
+  left: 16px;
+}
+
+.workout-classes-slider .swiper-button-next {
+  right: 16px;
+}
+
+.workout-classes-slider .swiper-button-prev::after,
+.workout-classes-slider .swiper-button-next::after {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.workout-classes-slider .swiper-button-disabled {
+  opacity: 0 !important;
+}

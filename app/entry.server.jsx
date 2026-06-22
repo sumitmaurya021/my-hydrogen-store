@@ -26,7 +26,9 @@ export default async function handleRequest(
       "'self'",
       "https://cdn.shopify.com",
       "https://shopify.com",
-      "https://images.onepeloton.com"
+      "https://images.onepeloton.com",
+      "https://loremflickr.com",
+      "https://images.unsplash.com"
     ]
   });
 
