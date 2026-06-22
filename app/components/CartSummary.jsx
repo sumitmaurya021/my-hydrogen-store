@@ -2,41 +2,40 @@ import {CartForm, Money} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
 
-/**
- * @param {CartSummaryProps}
- */
 export function CartSummary({cart, layout}) {
-  const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+  const className = layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
   const summaryId = useId();
-  const discountsHeadingId = useId();
-  const discountCodeInputId = useId();
-  const giftCardHeadingId = useId();
-  const giftCardInputId = useId();
+
+  const totalItems = cart?.totalQuantity || 0;
 
   return (
-    <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId}>Totals</h4>
-      <dl role="group" className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cart?.cost?.subtotalAmount?.amount ? (
-            <Money data={cart?.cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
-      <CartDiscounts
-        discountCodes={cart?.discountCodes}
-        discountsHeadingId={discountsHeadingId}
-        discountCodeInputId={discountCodeInputId}
-      />
-      <CartGiftCard
-        giftCardCodes={cart?.appliedGiftCards}
-        giftCardHeadingId={giftCardHeadingId}
-        giftCardInputId={giftCardInputId}
-      />
+    <div aria-labelledby={summaryId} className={`custom-cart-summary ${className}`}>
+      <div className="cart-summary-section">
+        <div className="cart-summary-row">
+          <span>Subtotal ({totalItems}):</span>
+          <span>{cart?.cost?.subtotalAmount?.amount ? <Money data={cart?.cost?.subtotalAmount} /> : '-'}</span>
+        </div>
+        <div className="cart-summary-row">
+          <span>Shipping:</span>
+          <span>--</span>
+        </div>
+        <div className="cart-promo-link">
+          <a href="#">Enter Promo Code</a>
+        </div>
+      </div>
+
+      <div className="cart-summary-section cart-total-section">
+        <div className="cart-summary-row cart-total-row">
+          <span>Estimated total:</span>
+          <span className="cart-total-price">{cart?.cost?.totalAmount?.amount ? <Money data={cart?.cost?.totalAmount} /> : '-'}</span>
+        </div>
+        <div className="cart-vat-text">VAT Included</div>
+        
+        <p className="cart-disclaimer">
+          You have a right to change your mind and cancel the contract for your purchase within 14 days without giving any reason, subject to certain conditions and limitations. Please see our Return Policy for full details.
+        </p>
+      </div>
+
       <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
     </div>
   );
@@ -49,11 +48,13 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className="cart-checkout-actions">
+      <a href={checkoutUrl} target="_self" className="cart-checkout-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="checkout-lock-icon" fill="currentColor">
+          <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/>
+        </svg>
+        Checkout
       </a>
-      <br />
     </div>
   );
 }

@@ -22,22 +22,12 @@ export function CartLineItem({layout, line, childrenMap}) {
   const {close} = useAside();
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
+  const lineId = line.id;
 
   return (
-    <li key={id} className="cart-line">
-      <div className="cart-line-inner">
-        {image && (
-          <Image
-            alt={title}
-            aspectRatio="1/1"
-            data={image}
-            height={100}
-            loading="lazy"
-            width={100}
-          />
-        )}
-
-        <div>
+    <li key={id} className="custom-cart-line">
+      <div className="custom-cart-line-inner">
+        <div className="cart-line-details">
           <Link
             prefetch="intent"
             to={lineItemUrl}
@@ -46,22 +36,22 @@ export function CartLineItem({layout, line, childrenMap}) {
                 close();
               }
             }}
+            className="cart-line-title-link"
           >
-            <p>
-              <strong>{product.title}</strong>
+            <p className="cart-line-title">
+              {product.title}
+              {selectedOptions && selectedOptions.length > 0 && 
+                selectedOptions.map(opt => ` - ${opt.value}`).join('')
+              }
             </p>
           </Link>
-          <ProductPrice price={line?.cost?.totalAmount} />
-          <ul>
-            {selectedOptions.map((option) => (
-              <li key={option.name}>
-                <small>
-                  {option.name}: {option.value}
-                </small>
-              </li>
-            ))}
-          </ul>
-          <CartLineQuantity line={line} />
+          <div className="cart-line-price">
+            <ProductPrice price={line?.cost?.totalAmount} />
+          </div>
+        </div>
+        <div className="cart-line-actions">
+          <div className="cart-line-qty">Qty: {line.quantity}</div>
+          <CartLineRemoveButton lineIds={[lineId]} disabled={!!line.isOptimistic} />
         </div>
       </div>
 
@@ -145,7 +135,7 @@ function CartLineRemoveButton({lineIds, disabled}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button disabled={disabled} type="submit">
+      <button disabled={disabled} type="submit" className="cart-line-remove">
         Remove
       </button>
     </CartForm>

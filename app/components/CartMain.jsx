@@ -55,7 +55,7 @@ export function CartMain({layout, cart: originalCart}) {
           Line items
         </p>
         <div>
-          <ul aria-labelledby="cart-lines">
+          <ul aria-labelledby="cart-lines" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {(cart?.lines?.nodes ?? []).map((line) => {
               // we do not render non-parent lines at the root of the cart
               if (
@@ -89,16 +89,16 @@ export function CartMain({layout, cart: originalCart}) {
  */
 function CartEmpty({hidden = false}) {
   const {close} = useAside();
+  
+  if (hidden) return null;
+
   return (
-    <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
+    <div className="cart-empty-state">
+      <p className="cart-empty-text">
+        Your cart is empty.
       </p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
+      <Link to="/collections" onClick={close} prefetch="viewport" className="cart-empty-btn">
+        Shop Now
       </Link>
     </div>
   );
