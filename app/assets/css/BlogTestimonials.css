@@ -1,0 +1,79 @@
+.blog-testimonials-section {
+  padding: 6rem 2rem;
+  background-color: #f7f9fa; 
+  margin-left: -1rem;
+  margin-right: -1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.blog-testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-testimonials-title {
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.blog-testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .blog-testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-author {
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.testimonial-quote {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #111;
+  margin: 0;
+}
+
+.blog-testimonials-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.blog-testimonials-button {
+  display: inline-block;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 14px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.blog-testimonials-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}

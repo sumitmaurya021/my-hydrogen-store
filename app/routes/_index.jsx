@@ -6,6 +6,7 @@ import {MockShopNotice} from '~/components/MockShopNotice';
 import {HeroCollection} from '~/components/HeroCollection';
 import {heroCollectionsData, heroContent} from '~/data/heroData';
 import {TrainingFeatures} from '~/components/TrainingFeatures';
+import {BlogTestimonials} from '~/components/BlogTestimonials';
 /**
  * @type {Route.MetaFunction}
  */
@@ -79,6 +80,7 @@ export default function Homepage() {
         gridHeading={heroContent.gridHeading}
       />
       <TrainingFeatures />
+      <BlogTestimonials />
       {data.isShopLinked ? null : <MockShopNotice />}
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
