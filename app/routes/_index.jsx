@@ -103,16 +103,16 @@ export default function Homepage() {
         <ImageWithText key={item.id} data={item} />
       ))}
       <HeroBanner data={heroBannerData} />
-      
-      <Suspense fallback={<div style={{textAlign: 'center', padding: '2rem'}}>Loading blogs...</div>}>
+
+      <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Loading blogs...</div>}>
         <Await resolve={data.latestArticles}>
           {(response) => response ? <LatestBlogs articles={response.articles} /> : null}
         </Await>
       </Suspense>
 
       {data.isShopLinked ? null : <MockShopNotice />}
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
+      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
   );
 }
